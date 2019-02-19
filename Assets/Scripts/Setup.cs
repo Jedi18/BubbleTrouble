@@ -7,12 +7,15 @@ public class Setup : MonoBehaviour {
     Camera camera;
     public GameObject boundry;
 
+    public BoundaryInfo boundaryInfo;
+
     // Hardcoded values for left and right
     float scaleX = 145.5721f;
     float scaleY = 62.25f;
 
+
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         camera = Camera.main;
         InstantiateColliders();
 	}
@@ -38,7 +41,17 @@ public class Setup : MonoBehaviour {
         GameObject tra4 = (GameObject)Instantiate(boundry, new Vector2(0, -distY - 0.1f), gameObject.transform.rotation);
         tra4.transform.localScale = new Vector2(scaleX, tra4.transform.localScale.y);
 
-        Debug.Log(distY);
-        Debug.Log(distX);
+        boundaryInfo.minX = -distX;
+        boundaryInfo.maxX = distX;
+        boundaryInfo.minY = -distY;
+        boundaryInfo.maxY = distY;
+    }
+
+    public struct BoundaryInfo
+    {
+        public float minX;
+        public float minY;
+        public float maxX;
+        public float maxY;
     }
 }

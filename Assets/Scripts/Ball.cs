@@ -11,7 +11,7 @@ public class Ball : MonoBehaviour {
     public float gravity = -1;
     public float bounceHeight = 10;
     public float speed = 0.01f;
-    public float speedX = 2f;
+    public float speedX = 100f;
 
     float velocityY = 0;
     int directionX = 1;
@@ -42,6 +42,9 @@ public class Ball : MonoBehaviour {
         if (collision.gameObject.tag == "Ground")
         {
             velocityY = Mathf.Sqrt(-2 * gravity * bounceHeight);
+        }else if(collision.gameObject.layer == 10)
+        {
+            directionX *= -1;
         }
     }
 }

@@ -37,10 +37,6 @@ public class Setup : MonoBehaviour {
         GameObject tra3 = (GameObject)Instantiate(boundry, new Vector2(0, distY + 0.1f), gameObject.transform.rotation);
         tra3.transform.localScale = new Vector2(scaleX, tra3.transform.localScale.y);
 
-        // Down
-        GameObject tra4 = (GameObject)Instantiate(boundry, new Vector2(0, -distY - 0.1f), gameObject.transform.rotation);
-        tra4.transform.localScale = new Vector2(scaleX, tra4.transform.localScale.y);
-
         boundaryInfo.minX = -distX;
         boundaryInfo.maxX = distX;
         boundaryInfo.minY = -distY;

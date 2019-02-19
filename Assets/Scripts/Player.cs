@@ -7,6 +7,10 @@ public class Player : MonoBehaviour {
     public float moveSpeed = 5f;
     public Setup set;
 
+    public GameObject projectilea;
+
+    public bool allowedToShoot = true;
+
     Collider2D collider;
 
 	// Use this for initialization
@@ -32,6 +36,12 @@ public class Player : MonoBehaviour {
         if (transform.position.x + 0.5f > set.boundaryInfo.maxX)
         {
             transform.position = new Vector2(set.boundaryInfo.maxX - 0.5f, transform.position.y);
+        }
+
+        // Shooting (Grappling Hook Style)
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            GameObject proj = Instantiate(projectilea, new Vector2(transform.position.x,-9), transform.rotation);
         }
 	}
 }

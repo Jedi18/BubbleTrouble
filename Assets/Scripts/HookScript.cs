@@ -5,10 +5,11 @@ using UnityEngine;
 public class HookScript : MonoBehaviour {
 
     public float hookSpeed = 5f;
+    public GameObject player;
 
 	// Use this for initialization
 	void Start () {
-		
+        player = GameObject.FindGameObjectWithTag("Player");
 	}
 	
 	// Update is called once per frame
@@ -28,12 +29,13 @@ public class HookScript : MonoBehaviour {
         if (collision.gameObject.layer == 9)
         {
             collision.gameObject.SendMessage("hookCollided");
-            Destroy(gameObject);
+            DestroyProj();
         }
     }
 
     public void DestroyProj()
     {
+        player.SendMessage("allowToShoot", true);
         Destroy(gameObject);
     }
 }

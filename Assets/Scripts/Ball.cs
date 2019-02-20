@@ -14,9 +14,6 @@ public class Ball : MonoBehaviour {
     public float speed = 0.01f;
     public float speedX = 100f;
 
-    // Amount to divide the velocity by for instantiating jump
-    public float instantiateJumpRed = 2f;
-
     // public for debugging purposes
     public float velocityY = 0;
     public int directionX = 1;
@@ -25,8 +22,9 @@ public class Ball : MonoBehaviour {
 	void Start () {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
-        // A small kickoff when instantiating
-        velocityY = Mathf.Sqrt(-2 * gravity * bounceHeight)/instantiateJumpRed;
+        // Retain required height (Depends on current height on instantiation)
+        float groundY = GameObject.Find("Ground").transform.position.y;
+        velocityY = Mathf.Sqrt(-2 * gravity * (bounceHeight - (transform.position.y - groundY)));
 	}
 	
 	// Update is called once per frame
@@ -78,9 +76,10 @@ public class Ball : MonoBehaviour {
         float ball2Height = bounceHeight / 1.25f;
 
         // No disintegration if bounceHeight is less than 6
-        if (ball1Height < 6)
+        if (ball1Height < 7)
         {
-            Destroy(gameObject);
+            // Because of some minor issues
+            Invoke("destroyGameObject", 0.01f);
             return;
         }
 
@@ -102,6 +101,11 @@ public class Ball : MonoBehaviour {
         GameObject ball2 = Instantiate(ballPrefab, gameObject.transform.position, gameObject.transform.rotation);
         ball2.SendMessage("reduceJumpHeight", ball2Height);
 
+        Destroy(gameObject);
+    }
+
+    public void destroyGameObject()
+    {
         Destroy(gameObject);
     }
 }

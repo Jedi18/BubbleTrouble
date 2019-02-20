@@ -8,8 +8,11 @@ public class Player : MonoBehaviour {
     public Setup set;
 
     public GameObject projectilea;
+    public UIControl uicontrol;
 
     public bool allowedToShoot = true;
+
+    public int lives = 0;
 
     Collider2D collider;
 
@@ -17,6 +20,8 @@ public class Player : MonoBehaviour {
 	void Start () {
         set = GameObject.Find("Initializer").GetComponent<Setup>();
         collider = gameObject.GetComponent<Collider2D>();
+        lives = 3;
+        uicontrol = GameObject.Find("Canvas").GetComponent<UIControl>();
 	}
 	
 	// Update is called once per frame
@@ -39,9 +44,33 @@ public class Player : MonoBehaviour {
         }
 
         // Shooting (Grappling Hook Style)
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) && allowedToShoot)
         {
             GameObject proj = Instantiate(projectilea, new Vector2(transform.position.x,-9), transform.rotation);
+            allowedToShoot = false;
         }
 	}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 9)
+        {
+            if (lives > 1)
+            {
+                lives--;
+                uicontrol.SendMessage("setLives", lives);
+            }
+            else
+            {
+                lives--;
+                uicontrol.SendMessage("setLives", lives);
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    public void allowToShoot(bool allow)
+    {
+        allowedToShoot = allow;
+    }
 }

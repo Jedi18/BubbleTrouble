@@ -23,6 +23,13 @@ public class HookScript : MonoBehaviour {
             hookSpeed = 0;
             Invoke("DestroyProj", 0.5f);
         }
+
+        // Ball collision
+        if (collision.gameObject.layer == 9)
+        {
+            collision.gameObject.SendMessage("hookCollided");
+            Destroy(gameObject);
+        }
     }
 
     public void DestroyProj()

@@ -14,5 +14,5 @@ Basic game mechanics have been implemented
 
 ## TODO
 
-* Change bubble size when it disintegrates
+* Level generation
 * Create sprites and animations

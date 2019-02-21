@@ -92,6 +92,7 @@ public class Ball : MonoBehaviour {
 
         ball1.SendMessage("setDirection", directionX * -1);
         ball1.SendMessage("reduceJumpHeight", ball1Height);
+        ball1.transform.localScale = ball1.transform.localScale / Mathf.Sqrt(2);
     }
 
     IEnumerator instantiateBall(float ball2Height)
@@ -100,6 +101,7 @@ public class Ball : MonoBehaviour {
         // Ball 2 direction is to be the same as the parent
         GameObject ball2 = Instantiate(ballPrefab, gameObject.transform.position, gameObject.transform.rotation);
         ball2.SendMessage("reduceJumpHeight", ball2Height);
+        ball2.transform.localScale = ball2.transform.localScale / Mathf.Sqrt(2);
 
         Destroy(gameObject);
     }
